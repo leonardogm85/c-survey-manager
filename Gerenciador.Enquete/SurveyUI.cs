@@ -1,34 +1,54 @@
 ﻿namespace Gerenciador.Enquete
 {
+    /// <summary>
+    /// Gerencia a interface gráfica da aplicação.
+    /// </summary>
     class SurveyUI
     {
+        /// <summary>
+        /// Enquete ativa.
+        /// </summary>
         private Survey survey;
 
+        /// <summary>
+        /// Arquivo associado a enquete.
+        /// </summary>
         private string surveyFile;
 
+        /// <summary>
+        /// Inicia a execução da aplicação.
+        /// </summary>
         public void Start()
         {
             while (true)
             {
+                // Mostra o menu principal. O retorno é a opção escolhida.
                 string option = ShowMainMenu();
 
                 if (option == "1")
                 {
+                    // Cria uma enquete e mostra o menu de enquete.
                     ShowCreateMenu();
                     ShowSurveyMenu();
                 }
                 else if (option == "2")
                 {
+                    // Carrega uma enquete e mostra o menu de enquete.
                     ShowLoadMenu();
                     ShowSurveyMenu();
                 }
                 else if (option == "3")
                 {
+                    // Sair da aplicação.
                     return;
                 }
             }
         }
 
+        /// <summary>
+        /// Mostra o menu principal.
+        /// </summary>
+        /// <returns>Opção escolhida.</returns>
         private string ShowMainMenu()
         {
             while (true)
@@ -48,6 +68,7 @@
 
                 if (option != "1" && option != "2" && option != "3")
                 {
+                    // Enquanto a opção digitada for inválida, fica no loop.
                     continue;
                 }
 
@@ -55,6 +76,9 @@
             }
         }
 
+        /// <summary>
+        /// Mostra o menu de criar enquete.
+        /// </summary>
         private void ShowCreateMenu()
         {
             survey = new Survey();
@@ -68,6 +92,7 @@
 
             while (true)
             {
+                // Solicita a pergunta da enquete.
                 Console.Write("Pergunta: ");
 
                 string question = Console.ReadLine();
@@ -83,6 +108,7 @@
 
             while (true)
             {
+                // Solicita o número de opções.
                 Console.Write("Quantas opções a pergunta vai ter? ");
 
                 try
@@ -96,6 +122,7 @@
                 }
             }
 
+            // Solicita cada uma das opções (ID e texto).
             for (int i = 0; i < numOptions; i++)
             {
                 string id;
@@ -125,14 +152,17 @@
                     }
                 }
 
+                // Adiciona a opção a enquete.
                 survey.SetOption(id, text);
             }
 
+            // Mostra a enquete.
             Console.WriteLine("Opções adicionadas com sucesso! Veja a enquete:\n");
             Console.WriteLine(survey.GetFormattedSurvey());
 
             while (true)
             {
+                // Solicita um arquivo para gravação da nova enquete.
                 Console.Write("Digite o caminho do arquivo para salvar a enquete: ");
 
                 string filePath = Console.ReadLine();
@@ -141,6 +171,7 @@
                 {
                     try
                     {
+                        // Salva a enquete no arquivo.
                         SurveyIO.SaveToFile(survey, filePath);
                         surveyFile = filePath;
                         break;
@@ -157,6 +188,9 @@
             Console.ReadLine();
         }
 
+        /// <summary>
+        /// Mostra o menu de carregamento de enquete.
+        /// </summary>
         private void ShowLoadMenu()
         {
             survey = new Survey();
@@ -168,6 +202,7 @@
 
             while (true)
             {
+                // Solicita o caminho onde a enquete está gravada.
                 Console.Write("Digite o nome do arquivo da enquete: ");
 
                 string filePath = Console.ReadLine();
@@ -176,6 +211,7 @@
                 {
                     try
                     {
+                        // Carrega a enquete do arquivo.
                         SurveyIO.LoadFromFile(survey, filePath);
                         surveyFile = filePath;
 
@@ -192,6 +228,9 @@
             }
         }
 
+        /// <summary>
+        /// Mostra o menu de enquete, onde é possível votar ou ver o resultado.
+        /// </summary>
         private void ShowSurveyMenu()
         {
             while (true)
@@ -213,19 +252,25 @@
 
                 if (option == "1")
                 {
+                    // Vota na enquete.
                     ShowVoteMenu();
                 }
                 else if (option == "2")
                 {
+                    // Mostra resultados da enquete.
                     ShowSurveyResults();
                 }
                 else if (option == "3")
                 {
+                    // Volta para o menu principal.
                     break;
                 }
             }
         }
 
+        /// <summary>
+        /// Mostra o menu de votação na enquete.
+        /// </summary>
         private void ShowVoteMenu()
         {
             while (true)
@@ -244,6 +289,7 @@
                 Option optio;
                 string vote;
 
+                // Solicita o voto.
                 bool valid = survey.Vote(out optio, out vote);
 
                 if (valid)
@@ -259,6 +305,7 @@
                 }
             }
 
+            // Ao final da votação, salva a enquete no arquivo associado.
             SurveyIO.SaveToFile(survey, surveyFile);
 
             Console.Write("Fim da votação. Pressione ENTER para continuar...");
@@ -266,6 +313,9 @@
             Console.ReadLine();
         }
 
+        /// <summary>
+        /// Mostra o resultado da enquete.
+        /// </summary>
         private void ShowSurveyResults()
         {
             Console.Clear();
@@ -273,6 +323,7 @@
             Console.WriteLine("RESULTADO DA ENQUETE");
             Console.WriteLine("--------------------\n");
 
+            // Calcula o resultado.
             List<OptionScore> scores = survey.CalculateScores();
 
             Console.WriteLine("{0,-23} | {1,-5}", "Opção", "Votos");

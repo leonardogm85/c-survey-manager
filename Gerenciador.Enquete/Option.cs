@@ -1,9 +1,18 @@
 ﻿namespace Gerenciador.Enquete
 {
+    /// <summary>
+    /// Opção de uma enquete
+    /// </summary>
     class Option : IStorable, IEquatable<Option>
     {
+        /// <summary>
+        /// ID da opção (o que deve ser digitado para escolher a opção).
+        /// </summary>
         public string Id { get; set; }
 
+        /// <summary>
+        /// Texto associado à opção.
+        /// </summary>
         public string Text { get; set; }
 
         public void Save(BinaryWriter writer)
