@@ -1,4 +1,4 @@
-﻿namespace Gerenciador.Enquete
+﻿namespace SurveyManager
 {
     /// <summary>
     /// Agrupa operações de I/O da aplicação.

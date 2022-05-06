@@ -1,4 +1,4 @@
-﻿namespace Gerenciador.Enquete
+﻿namespace SurveyManager
 {
     /// <summary>
     /// Votos de uma opção.

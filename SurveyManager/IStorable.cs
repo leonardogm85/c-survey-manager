@@ -1,4 +1,4 @@
-﻿namespace Gerenciador.Enquete
+﻿namespace SurveyManager
 {
     /// <summary>
     /// Interface que define os métodos de salvamento e carregamento de dados usando arquivos.

@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Gerenciador.Enquete
+namespace SurveyManager
 {
     /// <summary>
     /// Enquete.

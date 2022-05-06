@@ -1,4 +1,4 @@
-﻿namespace Gerenciador.Enquete
+﻿namespace SurveyManager
 {
     /// <summary>
     /// Gerencia a interface gráfica da aplicação.
