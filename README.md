@@ -1,2 +1,2 @@
-# gerenciador-enquete
-Gerenciador de enquetes
+# c-survey-manager
+Survey Manager
